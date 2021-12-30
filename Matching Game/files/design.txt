@@ -1,0 +1,53 @@
+Design 
+
+Classes
+    - GameData
+        Attributes: obj, name, leaders, matches, guesses, clicked_cards
+        Methods: __init__()
+    - Cards
+        Attribute: name, image, x, y, back_stamp, card_stamp, clicked, instances
+        Methods: __eq__(), __init__()
+    - Board
+        Attribute: name, tur, x, y, stamp, instances
+        Methods: __init__()
+
+Functions
+    - start_up()
+    - try_file()
+         stamp_nofile()
+    - get_user_input()
+        load_images()
+        add_images()
+        create_canvas()
+        draw_rect()
+        create_tur()
+    - place_cards()
+        if_three_rows()
+        if_two_rows()
+        card_pos()
+        sort_cards()
+    - create_board_objects()
+    - create_game_data_objects()
+    - create_card_objects()
+    - facedown_cards()
+    - set_tracking()
+        scores()
+        find_duplicates()
+        id_duplicates()
+        remove_duplicates()
+        tracker()
+    - add_quit()
+    - on_click()
+        if_click_conditions()
+        two_clicks()
+        match_cards()
+        cards_match()
+        cards_no_match()
+        won_game()
+        quit_game()
+
+Data Structures
+    Dictionaries to store large data, Lists to store smaller, temporary data that was only needed in a couple of functions or needed to run loops, Tuples for storing data from dictionary and classes in order to use/loop through them, Classes to store data for on_click functions.
+
+Testing:
+    My approach to testing my game was to play under multiple scenerios (with required files missing, using different number cards, entering incorrect values, etc) and seeing how the game behaved. I also found it helpful to have other people play the game in case they interacted with the game differently. Based on how the game behaved under these circustamces, I made changes to make sure that a game is still playable even if a couple of files/parameters are missing. Certain parameters that were required for the game had to be provided in order to continue, however, if a parameter was not necessary, the game will continue with defautl parameters.
