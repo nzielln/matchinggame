@@ -10,7 +10,7 @@ from match_functions import *
 
 def main():
     # Dictionary to store most of the game data(mostly positions and turtles)
-    DATA = {
+    data = {
         "NAME": "",
         "POSITIONS": {
             "main": {},
@@ -35,28 +35,28 @@ def main():
     S.setup(900, 700)
 
     # start game
-    leaders, DATA = start_up(DATA)
+    leaders, data = start_up(data)
 
     # set number of cards and card images, other parameters for the game
-    game_cards, DATA = get_user_input(DATA)
+    game_cards, data = get_user_input(data)
 
     # place cards and assign image to each position
-    game_cards, DATA = place_cards(game_cards, DATA)  # get POSITIONS
+    game_cards, data = place_cards(game_cards, data)  # get POSITIONS
 
     # create board objects to store as data n Board class
-    create_board_objects(DATA)
+    create_board_objects(data)
 
     # create game_data object to store as data in GameData class
-    create_game_data_objects(DATA)
+    create_game_data_objects(data)
 
     # place face down cards on board
-    facedown_cards(game_cards, DATA)
+    facedown_cards(game_cards, data)
 
-    # create objects for each card in DATA and save to Card class
-    create_card_objects(DATA)
+    # create objects for each card in data and save to Card class
+    create_card_objects(data)
 
     # start tracking matches, guesses and display leader board
-    set_tracking(DATA)
+    set_tracking(data)
 
     # add quit button
     add_quit()

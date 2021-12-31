@@ -186,7 +186,7 @@ def get_user_input(data):
 
 def load_images(cards, data, f="images.cfg"):
     """
-    Function: load_images(cards, data, f="file/images.cfg")
+    Function: load_images(cards, data, f="file../images.cfg")
     Parameters:
         cards: (int) user card number input
         data: (dict) a dictionary of data from the game
@@ -217,7 +217,7 @@ def load_images(cards, data, f="images.cfg"):
         # if error, let user know; playing default/classic game
         else:
             T.goto(-180, 110)
-            nofile_id = stamp_nofile("/images/nofile.gif")
+            nofile_id = stamp_nofile("../images/nofile.gif")
 
     game_cards = add_images(images, images_match, data, cards)
     game_cards["nofile_img"] = nofile_id
@@ -264,29 +264,29 @@ def add_images(images, images_match, data, cards):
     # if classic version
     else:
         cards_images = [
-            "/images/king_of_diamonds.gif",
-            "/images/2_of_clubs.gif",
-            "/images/2_of_diamonds.gif",
-            "/images/3_of_hearts.gif",
-            "/images/ace_of_diamonds.gif",
-            "/images/jack_of_spades.gif",
+            "../images/king_of_diamonds.gif",
+            "../images/2_of_clubs.gif",
+            "../images/2_of_diamonds.gif",
+            "../images/3_of_hearts.gif",
+            "../images/ace_of_diamonds.gif",
+            "../images/jack_of_spades.gif",
         ]
 
         cards_images_match = [
-            "/images/king_of_diamonds_match.gif",
-            "/images/2_of_clubs_match.gif",
-            "/images/2_of_diamonds_match.gif",
-            "/images/3_of_hearts_match.gif",
-            "/images/ace_of_diamonds_match.gif",
-            "/images/jack_of_spades_match.gif",
+            "../images/king_of_diamonds_match.gif",
+            "../images/2_of_clubs_match.gif",
+            "../images/2_of_diamonds_match.gif",
+            "../images/3_of_hearts_match.gif",
+            "../images/ace_of_diamonds_match.gif",
+            "../images/jack_of_spades_match.gif",
         ]
 
-        back = "/images/back.gif"
+        back = "../images/back.gif"
         game_cards["back"] = back
         game_cards["cards_images"] = cards_images
         game_cards["cards_images_match"] = cards_images_match
 
-        S.bgpic("/images/bg.gif")
+        S.bgpic("../images/bg.gif")
         create_canvas(cards, data)
     return game_cards
 
@@ -691,7 +691,7 @@ def set_tracking(data):
 
     if data["nofile_l"] is True:
         T.goto(x + 100, y - 150)
-        stamp_nofile("/images/leaderboard_error.gif")
+        stamp_nofile("../images/leaderboard_error.gif")
     else:
         scores()
 
@@ -880,8 +880,8 @@ def add_quit():
             y = a.y
 
     q.goto(x + 100, y - 20)
-    S.addshape("/images/quit_button.gif")
-    q.shape("/images/quit_button.gif")
+    S.addshape("../images/quit_button.gif")
+    q.shape("../images/quit_button.gif")
     a.stamp = q.stamp()
 
 
@@ -923,7 +923,7 @@ def if_click_conditions(q, clicked_cards, x, y):
     """
 
     # if game is won, close turtle
-    if T.shape() == "/images/won.gif":
+    if T.shape() == "../images/won.gif":
         S.bye()
 
     # if no cards in instance list in Card, game is won
@@ -931,7 +931,7 @@ def if_click_conditions(q, clicked_cards, x, y):
         won_game()
 
     # if user quits, close turtle
-    elif T.shape() == "/images/quit.gif":
+    elif T.shape() == "../images/quit.gif":
         S.bye()
 
     # if user clicks quit button
@@ -1117,8 +1117,8 @@ def won_game():
 
     # stamo win msg
     T.goto(m_x + 250, m_y - 180)
-    S.addshape("/images/won.gif")
-    T.shape("/images/won.gif")
+    S.addshape("../images/won.gif")
+    T.shape("../images/won.gif")
     T.stamp()
 
 
@@ -1139,7 +1139,7 @@ def quit_game():
             m_x = a.x
             m_y = a.y
 
-    S.addshape("/images/quit.gif")
-    T.shape("/images/quit.gif")
+    S.addshape("../images/quit.gif")
+    T.shape("../images/quit.gif")
     T.goto(m_x + 250, m_y - 180)
     T.stamp()
