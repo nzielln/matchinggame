@@ -4,20 +4,20 @@ from Card import Card
 from Board import Board
 from GameData import GameData
 
-
 # Turtle and Screen Globals
 T = tur.Turtle(visible=False)
 S = tur.Screen()
 
+
 # starts the game
-def start_up(DATA):
+def start_up(data):
     """
-    Function: start_up(DATA)
+    Function: start_up(data)
     Parameters:
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         leaders: (dict) a dict of leaders and scores from leaders.txt
-        DATA: (dict) the DATA dict updated with leaders and
+        data: (dict) the data dict updated with leaders and
         scores from leaders
 
     Starts up the game by reading leaders and scores from the
@@ -26,7 +26,7 @@ def start_up(DATA):
     """
 
     # dict to store information for leaders.txt
-    leaders = DATA["LEADERS"]
+    leaders = data["LEADERS"]
     num_line = 0
     nofile_l = None
 
@@ -44,8 +44,8 @@ def start_up(DATA):
     else:
         nofile_l = True
 
-    DATA["nofile_l"] = nofile_l
-    return leaders, DATA
+    data["nofile_l"] = nofile_l
+    return leaders, data
 
 
 def try_file(file_name, mode):
@@ -97,15 +97,15 @@ def stamp_nofile(img):
     return nofile_id
 
 
-def get_user_input(DATA):
+def get_user_input(data):
     """
-    Function: get_user_input(DATA)
+    Function: get_user_input(data)
     Parameters:
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         game_cards: (dict) a dict of informatio on cards to be used in the
         current game
-        DATA: (dict) the DATA dict updated with game_cards and user inputs
+        data: (dict) the data dict updated with game_cards and user inputs
 
     Gets user input (name, game_mode and card) and creates/assigns cards
     to each position on the canvas
@@ -137,7 +137,7 @@ def get_user_input(DATA):
     if name == "":
         name = "Guest"
 
-    DATA["NAME"] = name
+    data["NAME"] = name
 
     T.goto(-410, 290)
     T.write(
@@ -162,7 +162,7 @@ def get_user_input(DATA):
     if game_mode == "":
         game_mode = "C"
 
-    DATA["game_mode"] = game_mode
+    data["game_mode"] = game_mode
 
     cards = int(
         tur.numinput("Game Mode", "Chose number of cards to play (8, 10, or 12).")
@@ -178,18 +178,18 @@ def get_user_input(DATA):
             )
         )
 
-    game_cards = load_images(cards, DATA)
+    game_cards = load_images(cards, data)
     game_cards["cards"] = cards
 
-    return game_cards, DATA
+    return game_cards, data
 
 
-def load_images(cards, DATA, f="images.cfg"):
+def load_images(cards, data, f="images.cfg"):
     """
-    Function: load_images(cards, DATA, f="file/images.cfg")
+    Function: load_images(cards, data, f="file/images.cfg")
     Parameters:
         cards: (int) user card number input
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
         f: (file) file with card image names
     Returns:
         game_cards: (dict) a dict with game card information
@@ -200,7 +200,7 @@ def load_images(cards, DATA, f="images.cfg"):
 
     images = []
     images_match = []
-    game_mode = DATA["game_mode"]
+    game_mode = data["game_mode"]
     nofile_id = None
 
     if game_mode == "B" or game_mode == "Bangtan":
@@ -219,19 +219,19 @@ def load_images(cards, DATA, f="images.cfg"):
             T.goto(-180, 110)
             nofile_id = stamp_nofile("/images/nofile.gif")
 
-    game_cards = add_images(images, images_match, DATA, cards)
+    game_cards = add_images(images, images_match, data, cards)
     game_cards["nofile_img"] = nofile_id
 
     return game_cards
 
 
-def add_images(images, images_match, DATA, cards):
+def add_images(images, images_match, data, cards):
     """
-    Function: add_images(images, immage_match, DATA, cards)
+    Function: add_images(images, immage_match, data, cards)
     Parameters:
         images: (list) card images
         images_match: (list) match for cards in images
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
         cards: (int) user card number input
     Returns:
         game_cards: (dict) a dict with game card information
@@ -246,9 +246,9 @@ def add_images(images, images_match, DATA, cards):
 
     # if bangtan version
     if (
-        images
-        and images_match
-        and (DATA["game_mode"] == "B" or DATA["game_mode"] == "Bangtan")
+            images
+            and images_match
+            and (data["game_mode"] == "B" or data["game_mode"] == "Bangtan")
     ):
         cards_images = images
         cards_images_match = images_match
@@ -259,7 +259,7 @@ def add_images(images, images_match, DATA, cards):
         game_cards["cards_images_match"] = cards_images_match
         S.bgpic("../cfg_images/bg.gif")
 
-        create_canvas(cards, DATA)
+        create_canvas(cards, data)
 
     # if classic version
     else:
@@ -287,16 +287,16 @@ def add_images(images, images_match, DATA, cards):
         game_cards["cards_images_match"] = cards_images_match
 
         S.bgpic("/images/bg.gif")
-        create_canvas(cards, DATA)
+        create_canvas(cards, data)
     return game_cards
 
 
-def create_canvas(cards, DATA):
+def create_canvas(cards, data):
     """
-    Function: create_cavas(cards, DATA)
+    Function: create_cavas(cards, data)
     Parameters:
         cards: (int) user card number input
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
@@ -304,7 +304,7 @@ def create_canvas(cards, DATA):
     Calls draw_rect() to draw and get positions for each section
     """
 
-    POSITIONS = DATA["POSITIONS"]
+    POSITIONS = data["POSITIONS"]
 
     T.goto(-430, 290)
 
@@ -315,35 +315,35 @@ def create_canvas(cards, DATA):
         game_width = 620
 
     # draw each section on the board to get coordinates to use later
-    draw_rect(game_width, 360, DATA, "main")
+    draw_rect(game_width, 360, data, "main")
     T.goto(POSITIONS["main"]["topr_x"] + 15, POSITIONS["main"]["topr_y"])
 
-    draw_rect(200, 210, DATA, "scores")
+    draw_rect(200, 210, data, "scores")
     T.goto(POSITIONS["scores"]["bottoml_x"], POSITIONS["scores"]["bottoml_y"] - 15)
 
-    draw_rect(200, 60, DATA, "tracker")
+    draw_rect(200, 60, data, "tracker")
     T.goto(POSITIONS["tracker"]["bottoml_x"], POSITIONS["tracker"]["bottoml_y"] - 15)
 
-    draw_rect(200, 40, DATA, "quit")
+    draw_rect(200, 40, data, "quit")
     T.goto(POSITIONS["main"]["topl_x"] + 20, POSITIONS["main"]["topl_y"] - 20)
 
 
-def draw_rect(width, height, DATA, name):
+def draw_rect(width, height, data, name):
     """
-    Function: draw_rect(width, height, DATA, name)
+    Function: draw_rect(width, height, data, name)
     Parameters:
         width: (int) width of the section
         height: (int) height of the section
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
         cards: (int) user card number input
     Returns:
         None
 
     Draws a rectangle with provided width and height and saves
-    the coordinate positions in DATA
+    the coordinate positions in data
     """
 
-    pos = DATA["POSITIONS"][name]
+    pos = data["POSITIONS"][name]
 
     pos["topl_x"], pos["topl_y"] = round(T.xcor()), round(T.ycor())
 
@@ -383,19 +383,19 @@ def create_tur(pos, name):
     pos["turtle"].penup()
 
 
-def place_cards(game_cards, DATA):
+def place_cards(game_cards, data):
     """
-    Function: place_cards_(game_cards, DATA)
+    Function: place_cards_(game_cards, data)
     Parameters:
         game_cards: (dict) a dict with game card information
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         game_cards: (dict) a dict with game card information
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
 
-    Draws a rectangle for cards and saves coordinate positions in DATA
+    Draws a rectangle for cards and saves coordinate positions in data
     """
-    POSITIONS = DATA["POSITIONS"]
+    POSITIONS = data["POSITIONS"]
     cards = game_cards["cards"]
 
     # different number of rows depedning on number of cards
@@ -403,7 +403,7 @@ def place_cards(game_cards, DATA):
         if_two_rows(POSITIONS, cards)
     else:
         if_three_rows(POSITIONS, cards)
-    return game_cards, DATA
+    return game_cards, data
 
 
 def if_three_rows(POSITIONS, cards):
@@ -411,7 +411,7 @@ def if_three_rows(POSITIONS, cards):
     Function: if_three_rows(POSITIONS, cards)
     Parameters:
         cards: (int) number of cards in the game
-        POSITIONS: (dict) a dictionary of DATA from the game
+        POSITIONS: (dict) a dictionary of data from the game
     Returns:
         None
 
@@ -421,8 +421,8 @@ def if_three_rows(POSITIONS, cards):
 
     for i in range(int(cards / 3)):
         T.color("white")
-        POSITIONS["images"][f"box_{i+1}"] = {}
-        card = POSITIONS["images"][f"box_{i+1}"]
+        POSITIONS["images"][f"box_{i + 1}"] = {}
+        card = POSITIONS["images"][f"box_{i + 1}"]
 
         # draws each card position on the board
         card_pos(card)
@@ -433,8 +433,8 @@ def if_three_rows(POSITIONS, cards):
     )
 
     for i in range(int(cards / 3), int(cards - cards / 3)):
-        POSITIONS["images"][f"box_{i+1}"] = {}
-        card = POSITIONS["images"][f"box_{i+1}"]
+        POSITIONS["images"][f"box_{i + 1}"] = {}
+        card = POSITIONS["images"][f"box_{i + 1}"]
 
         # draws each card position on the board
         card_pos(card)
@@ -445,8 +445,8 @@ def if_three_rows(POSITIONS, cards):
     )
 
     for i in range(int(cards - cards / 3), cards):
-        POSITIONS["images"][f"box_{i+1}"] = {}
-        card = POSITIONS["images"][f"box_{i+1}"]
+        POSITIONS["images"][f"box_{i + 1}"] = {}
+        card = POSITIONS["images"][f"box_{i + 1}"]
 
         # draws each card position on the board
         card_pos(card)
@@ -457,7 +457,7 @@ def if_two_rows(POSITIONS, cards):
     Function: if_two_rows(POSITIONS, cards)
     Parameters:
         cards: (int) number of cards in the game
-        POSITIONS: (dict) a dictionary of DATA from the game
+        POSITIONS: (dict) a dictionary of data from the game
     Returns:
         None
 
@@ -466,8 +466,8 @@ def if_two_rows(POSITIONS, cards):
     """
 
     for i in range(int(cards / 2)):
-        POSITIONS["images"][f"box_{i+1}"] = {}
-        card = POSITIONS["images"][f"box_{i+1}"]
+        POSITIONS["images"][f"box_{i + 1}"] = {}
+        card = POSITIONS["images"][f"box_{i + 1}"]
 
         # draws each card position on the board
         card_pos(card)
@@ -478,8 +478,8 @@ def if_two_rows(POSITIONS, cards):
     )
 
     for i in range(int(cards - cards / 2), cards):
-        POSITIONS["images"][f"box_{i+1}"] = {}
-        card = POSITIONS["images"][f"box_{i+1}"]
+        POSITIONS["images"][f"box_{i + 1}"] = {}
+        card = POSITIONS["images"][f"box_{i + 1}"]
 
         # draws each card position on the board
         card_pos(card)
@@ -491,11 +491,11 @@ def card_pos(card):
     Function: if_three_rows(POSITIONS, cards)
     Parameters:
         cards: (int) number of cards in the game
-        POSITIONS: (dict) a dictionary of DATA from the game
+        POSITIONS: (dict) a dictionary of data from the game
     Returns:
         None
 
-    Draws a rectangle for cards and saves coordinate positions in DATA
+    Draws a rectangle for cards and saves coordinate positions in data
     """
 
     T.forward(100)
@@ -554,22 +554,22 @@ def sort_cards(game_cards):
     return shuffled
 
 
-def create_board_objects(DATA):
+def create_board_objects(data):
     """
-    Function: create_board_objects(DATA)
+    Function: create_board_objects(data)
     Parameters:
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
-    Creates Board class instances of each section in DATA and saves it
+    Creates Board class instances of each section in data and saves it
     to Board class
 
     """
 
     # save each board section in a class, x, y, turtle and name variables
     boards = ["main", "scores", "tracker", "quit"]
-    for a, b in DATA["POSITIONS"].items():
+    for a, b in data["POSITIONS"].items():
         if a in boards:
             name = a
             tur = b["turtle"]
@@ -579,20 +579,20 @@ def create_board_objects(DATA):
 
 
 # create an object to save game data needed to run the game
-def create_game_data_objects(DATA):
+def create_game_data_objects(data):
     """
-    Function: create_data_objects(DATA)
+    Function: create_data_objects(data)
     Parameters:
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
-    Creates GameData instances of data in DATA and saves it
+    Creates GameData instances of data in data and saves it
     to GameData class
 
     """
-    name = DATA["NAME"]
-    leaders = DATA["LEADERS"]
+    name = data["NAME"]
+    leaders = data["LEADERS"]
     guesses = 0
     matches = 0
     clicked_cards = []
@@ -601,21 +601,21 @@ def create_game_data_objects(DATA):
 
 
 # place face-down cards at each card pos
-def facedown_cards(game_cards, DATA):
+def facedown_cards(game_cards, data):
     """
-    Function: facedown_cards(game_cards, DATA)
+    Function: facedown_cards(game_cards, data)
     Parameters:
         game_cards: (dict) a dict with game card information
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
     Places facedown cards at each card positon on the game board,
-    assigns a card image to each card and saves information to DATA
+    assigns a card image to each card and saves information to data
     """
 
     T.speed("fast")
-    POSITIONS = DATA["POSITIONS"]
+    POSITIONS = data["POSITIONS"]
 
     cards = game_cards["cards"]
     back = game_cards["back"]
@@ -632,44 +632,44 @@ def facedown_cards(game_cards, DATA):
 
     # place facedown cards and then randomly assign a card at each card pos
     for i in range(cards):
-        card = POSITIONS["images"][f"box_{i+1}"]
+        card = POSITIONS["images"][f"box_{i + 1}"]
         T.goto((card["topl_x"]) + 50, (card["topl_y"]) - 75)
         stamp = T.stamp()
         card["back_stamp"] = stamp
-        card["name"] = f"box_{i+1}"
+        card["name"] = f"box_{i + 1}"
         card["card"] = shuffled[i]
         card["clicked"] = False
 
     T.speed("fastest")
 
 
-def create_card_objects(DATA):
+def create_card_objects(data):
     """
-    Function: create_card_objects(DATA)
+    Function: create_card_objects(data)
     Parameters:
-        DATA: (dict) a dictionary of DATA from the game
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
-    Creates Card instances of each card in DATA["images"] and saves it
+    Creates Card instances of each card in data["images"] and saves it
     to the Card class
     """
     # save each card as an object in the Card class
-    for b in DATA["POSITIONS"]["images"]:
-        name = DATA["POSITIONS"]["images"][b]["name"]
-        image = DATA["POSITIONS"]["images"][b]["card"]
-        x = DATA["POSITIONS"]["images"][b]["topl_x"]
-        y = DATA["POSITIONS"]["images"][b]["topl_y"]
-        back_stamp = DATA["POSITIONS"]["images"][b]["back_stamp"]
+    for b in data["POSITIONS"]["images"]:
+        name = data["POSITIONS"]["images"][b]["name"]
+        image = data["POSITIONS"]["images"][b]["card"]
+        x = data["POSITIONS"]["images"][b]["topl_x"]
+        y = data["POSITIONS"]["images"][b]["topl_y"]
+        back_stamp = data["POSITIONS"]["images"][b]["back_stamp"]
 
         box = Card(name, image, x, y, back_stamp)
 
 
-def set_tracking(DATA):
+def set_tracking(data):
     """
     Function: set_tracking()
     Parameters:
-        None
+        data: (dict) a dictionary of data from the game
     Returns:
         None
 
@@ -689,7 +689,7 @@ def set_tracking(DATA):
     sco.goto(x + 20, y - 50)
     sco.write(f"Name\t\tScore", align="left", font=("Arial", 14, "bold"))
 
-    if DATA["nofile_l"] is True:
+    if data["nofile_l"] is True:
         T.goto(x + 100, y - 150)
         stamp_nofile("/images/leaderboard_error.gif")
     else:
@@ -973,11 +973,10 @@ def two_clicks(x, y):
 
         # check in click is in range of any card pos
         if (
-            x in range(box_x, box_x + 100)
-            and y in range(box_y - 150, box_y)
-            and box.clicked is not True
+                x in range(box_x, box_x + 100)
+                and y in range(box_y - 150, box_y)
+                and box.clicked is not True
         ):
-
             # get card img, pos and flip card
             card_img = box.image
             x_pos = box.x

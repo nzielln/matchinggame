@@ -5,16 +5,10 @@
     Ellah Nzikoba
 """
 
-import turtle as tur
-import random
 from match_functions import *
-from Card import Card
-from Board import Board
-from GameData import GameData
 
 
 def main():
-    global T, S
     # Dictionary to store most of the game data(mostly positions and turtles)
     DATA = {
         "NAME": "",
