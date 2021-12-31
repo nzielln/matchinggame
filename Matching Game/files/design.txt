@@ -47,7 +47,11 @@ Functions
         quit_game()
 
 Data Structures
-    Dictionaries to store large data, Lists to store smaller, temporary data that was only needed in a couple of functions or needed to run loops, Tuples for storing data from dictionary and classes in order to use/loop through them, Classes to store data for on_click functions.
+    Dictionaries to store large data, Lists to store smaller, temporary data that was only needed in a couple of functions or needed to run loops,
+    Tuples for storing data from dictionary and classes in order to use/loop through them, Classes to store data for on_click functions.
 
 Testing:
-    My approach to testing my game was to play under multiple scenerios (with required files missing, using different number cards, entering incorrect values, etc) and seeing how the game behaved. I also found it helpful to have other people play the game in case they interacted with the game differently. Based on how the game behaved under these circustamces, I made changes to make sure that a game is still playable even if a couple of files/parameters are missing. Certain parameters that were required for the game had to be provided in order to continue, however, if a parameter was not necessary, the game will continue with defautl parameters.
+    My approach to testing my game was to play under multiple scenerios (with required files missing, using different number cards, entering incorrect values, etc)
+    and seeing how the game behaved. I also found it helpful to have other people play the game in case they interacted with the game differently.
+    Based on how the game behaved under these circustamces, I made changes to make sure that a game is still playable even if a couple of files/parameters are missing.
+    Certain parameters that were required for the game had to be provided in order to continue, however, if a parameter was not necessary, the game will continue with defautl parameters.
